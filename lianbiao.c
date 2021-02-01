@@ -9,7 +9,8 @@ typedef struct node{
 */
 /*尾插法*/
 //有头节点
-/*
+ //Node * removeNthFromEnd(Node* head, int n);
+ /*Node* partition(Node* head, int x);
 int main(){
     Node *head;
     Node *p;
@@ -28,13 +29,77 @@ int main(){
       p=s;
     }
    p->next=NULL;
+   // int n;
+   //scanf("%d",&n);
+   //head=removeNthFromEnd(head, n);
+    
+    p=head->next;
+    while(p){
+        printf("%d ",p->data);
+        p=p->next;
+    }
+       printf("\n");
+       int x;
+    scanf("%d",&x);
+
+    head=partition(head, x);
 
     p=head->next;
     while(p){
         printf("%d ",p->data);
         p=p->next;
     }
-       printf("\n");*/
+       printf("\n");
+       return 0;
+}
+
+*/
+/*
+// 删除链表的倒数第N个节点
+Node* removeNthFromEnd(Node* head, int n){
+   Node *p,*q,*r;
+   p=head;
+   if(head==NULL){
+       p=head->next;
+   }
+   int cnt=0;
+   while(p){
+       cnt++;
+       p=p->next;
+   }
+   int i,j;
+   i=1;
+   p=head;
+   if(head==NULL)  p=head->next;
+   while(i<cnt-n&&p){
+     p=p->next;
+     i++;
+   }
+   q=p->next;
+
+   if(cnt==n&&n!=1){
+       r=p;
+       p=q;
+       q=q->next;
+       head=p;
+       free(r);
+       return head;
+   }
+   if(n!=1&&p){
+       p->next=q->next;
+       free(q);
+   }else{
+       if(cnt==1){
+           p=NULL;
+           head=p;
+           return head;
+       }else{
+       p->next=NULL;
+       }
+       free(q);
+   }
+   return head;
+}*/
      /*插入    在第 i个位置插入新节点*/
     /*int j=0;
     int i=2;
@@ -55,9 +120,9 @@ int main(){
         printf("%d ",p->data);
         p=p->next;
     }
-    printf("\n");
+    printf("\n");*/
     //删除 在第x个位置删除
-     int k,x;
+    /* int k,x;
      k=0;x=3;
      w=head;
      while(k<x-1&&w){
@@ -74,7 +139,7 @@ int main(){
     while(p){
         printf("%d ",p->data);
         p=p->next;
-    }
+    }*/
     
     //查询
     /*int shuzi;
@@ -261,7 +326,7 @@ void add(Node **head){
 }
 */
 
-
+/*
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -296,18 +361,15 @@ void quchu(Node **L1,Node **L2){
          q=(*L2)->next;
         while(q){
             if(p->data==q->data){
-               if(p==*L1){
                 t=p;
+               if(p==*L1){
                 p=p->next;
                 *L1=p;
                 free(t);        
                }else{
-                   Node *e;
-                   e=(Node *)malloc(sizeof(Node));
-                   e=p;
                    t->next=p;
                    t->next=p->next;
-                   free(e);
+                   free(t);
                }
             }
             q=q->next;
@@ -343,4 +405,294 @@ void add(Node **head){
         p=p->next;
     }
     printf("\n");
+}
+*/
+
+/*
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct ListNode {
+      int val;
+      struct ListNode *next;
+}Link;
+
+void add(Link **head);
+void removeElements(struct ListNode** head, int val);
+
+int main(){
+    Link *head;
+    int val=6;
+    head=(Link *)malloc(sizeof(Link));
+    head->next=NULL;
+    add(&head);
+    removeElements(&head,val);
+    
+    return 0;
+}
+
+void removeElements(struct ListNode** head, int val){
+     struct ListNode *p,*r,*q,*t;
+     p=*head;
+     t=(struct ListNode *)malloc(sizeof(struct ListNode));
+     
+     while(p){
+         t=p->next;
+         if(p->val==val){
+             r=*head;
+             *head=(*head)->next;
+             p=*head;
+             free(r);
+         }else if(t->val==val){
+             t=r;
+             p->next=t->next;
+             p=p->next;
+             free(r);
+         }else{
+             p=p->next;
+         }
+     }
+
+     p=(*head)->next;
+    while(p){
+        printf("%d ",p->val);
+        p=p->next;
+    }
+    printf("\n");
+
+    
+}
+
+void add(Link **head){
+    Link *p;
+    int va;
+    p=*head;
+    while(1){
+        scanf("%d",&va);
+       if(va==0)  break;
+       Link *q;
+       q=(Link *)malloc(sizeof(Link));
+       q->val=va;
+        p->next=q;
+        p=q;
+    }
+    p->next=NULL;
+
+    p=(*head)->next;
+    while(p){
+        printf("%d ",p->val);
+        p=p->next;
+    }
+    printf("\n");
+}
+*/
+
+
+
+
+
+
+//假期链表
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct linklist{
+    int data;
+    struct linklist *next;
+}Node;
+
+void weiadd(Node *head);
+void headadd(Node *head);
+void sanchu(Node *head);
+void sczhi(Node *head);
+void xiugai(Node *head);
+void chazhao(Node *head);
+void czzhi(Node *head);
+
+int main(){
+    Node *head;
+    Node *p;
+    int number;
+    head=(Node *)malloc(sizeof(Node));
+    head->next=NULL;
+    p=head;
+    while(1){
+      scanf("%d",&number);
+      if(number==0)  break;
+      Node *s=(Node *)malloc(sizeof(Node));
+      s->data=number;
+
+      p->next=s;
+      p=s;
+    }
+    p->next=NULL;
+//原链表
+    p=head->next;
+    while(p){
+        printf("%d ",p->data);
+        p=p->next;
+    }
+    printf("\n");
+//尾接的数
+    weiadd(head);
+    p=head->next;
+    while(p){
+        printf("%d ",p->data);
+        p=p->next;
+    }
+    printf("\n");
+//头接的数
+    headadd(head);
+    p=head->next;
+    while(p){
+        printf("%d ",p->data);
+        p=p->next;
+    }
+    printf("\n");
+//删除第几个节点
+    sanchu(head);
+    p=head->next;
+    while(p){
+        printf("%d ",p->data);
+        p=p->next;
+    }
+    printf("\n");
+//删除确定值
+    sczhi(head);
+    p=head->next;
+    while(p){
+        printf("%d ",p->data);
+        p=p->next;
+    }
+    printf("\n");
+//修改节点信息
+    xiugai(head);
+    p=head->next;
+    while(p){
+        printf("%d ",p->data);
+        p=p->next;
+    }
+    printf("\n");
+//查找第几个节点
+    chazhao(head);
+    p=head->next;
+    while(p){
+        printf("%d ",p->data);
+        p=p->next;
+    }
+    printf("\n");
+//查找确定值
+    czzhi(head);
+    p=head->next;
+    while(p){
+        printf("%d ",p->data);
+        p=p->next;
+    }
+    printf("\n");
+
+    return 0;
+}
+
+void weiadd(Node *head){
+    int s;
+    Node *t;
+    printf("尾插的数：");
+    scanf("%d",&s);
+    Node *q=(Node *)malloc(sizeof(Node));
+    q->data=s;
+    t=head;
+    while(t->next){
+        t=t->next;
+    }
+    t->next=q;
+    t=q;
+    t->next=NULL;
+}
+
+void headadd(Node *head){
+    int s;
+    printf("头插的数：");
+    scanf("%d",&s);
+    Node *q=(Node *)malloc(sizeof(Node));
+    q->data=s;
+    Node *t;
+    t=head;
+    q->next=head->next;
+    head->next=q;
+}
+
+void sanchu(Node *head){
+    int i,t;
+    Node *q,*s;
+    printf("删除第几个:");
+    scanf("%d",&t);
+    q=head;
+    for(i=1;i<t;i++){
+        q=q->next;
+    }
+    s=q->next;
+    q->next=s->next;
+    free(s);
+}
+
+void sczhi(Node *head){
+    int a;
+    printf("删除值：");
+    scanf("%d",&a);
+    Node *q,*t;
+    q=head;
+    t=q->next;
+    while(t){
+        if(t->data==a){
+            q->next=t->next;
+            free(t);
+            t=q->next;
+        }
+        q=q->next;
+        if(t)  t=t->next;
+        else t=NULL;
+    }
+}
+
+void xiugai(Node *head){
+    int i,a,b;
+    printf("修改第几个节点：");
+    scanf("%d",&a);
+    Node *q,*t;
+    q=head;
+    for(i=1;i<a;i++){
+        q=q->next;
+    }
+    t=q->next;
+    printf("修改的值:");
+    scanf("%d",&b);
+    t->data=b;
+}
+
+void chazhao(Node *head){
+    int i,a;
+    printf("查找第几个节点：");
+    scanf("%d",&a);
+    Node *q,*t;
+    q=head;
+    for(i=1;i<a;i++){
+        q=q->next;
+    }
+    t=q->next;
+    printf("第%d个节点：\n",a);
+    printf("数值为%d\n",t->data);
+}
+void czzhi(Node *head){
+    int i,a;
+    printf("查找确定值：");
+    scanf("%d",&a);
+    i=1;
+    Node *t,*q;
+    q=head->next;
+    while(q){
+        if(q->data==a){
+            printf("第%d个节点\n",i);
+        }
+        i++;
+        q=q->next;
+    }
 }
